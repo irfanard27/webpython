@@ -1,1 +1,1 @@
-web: gunicorn webipnu.wsgi --log-file -
+web: waitress-serve --port=$PORT webipnu.wsgi:application
