@@ -1,0 +1,14 @@
+
+.navbar {
+    background: #fff;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    z-index: 9998;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.navbar-fixed-top{
+    width: 100%;
+    position: fixed;
+}
+

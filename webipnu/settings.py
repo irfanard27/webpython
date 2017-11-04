@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'redactor',
+    #'froala_editor'
 
 ]
 
@@ -79,10 +81,20 @@ WSGI_APPLICATION = 'webipnu.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'webippnu',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
+
 }
 
 
@@ -124,7 +136,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+#MEDIA_URL = '/media/'
+##MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# jet costumize #
 JET_DEFAULT_THEME = 'light-gray'
 
 JET_THEMES = [
@@ -160,3 +181,16 @@ JET_THEMES = [
     }
 ]
 
+JET_SIDE_MENU_COMPACT = True
+
+JET_CHANGE_FORM_SIBLING_LINKS = True
+
+JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
+
+# end jet costumize #
+
+
+# redactore #
+
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'uploads/'
