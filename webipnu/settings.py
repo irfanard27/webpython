@@ -91,10 +91,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'webippnu',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': 'd8it7qd04m6r86',
+        'USER': 'sshzjvzwynembj',
+        'PASSWORD': 'c26866c75a5ce5a14c774ca56806a5524dffa36ca8f40bfb382b00ad2cce51c8',
+        'HOST': 'ec2-54-235-80-137.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 
@@ -102,7 +102,6 @@ DATABASES = {
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-
 
 
 # Password validation
