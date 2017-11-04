@@ -89,6 +89,15 @@ DATABASES = {
     #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #}
 
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'webippnu',
+    #    'USER': 'postgres',
+    #    'PASSWORD': 'postgres',
+    #    'HOST': 'localhost',
+    #    'PORT': '5432',
+    #}
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd8it7qd04m6r86',
@@ -102,6 +111,7 @@ DATABASES = {
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
+
 
 
 # Password validation
