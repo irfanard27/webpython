@@ -28,7 +28,7 @@ SECRET_KEY = '(_2h(h4_30euw3p@dk^l#^&x&ohk=t)20-b+#d3emk&cz98==m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pelajarnu.herokuapp.com']
 
 
 # Application definition
@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'redactor',
-    #'froala_editor'
-
 ]
 
 MIDDLEWARE = [
