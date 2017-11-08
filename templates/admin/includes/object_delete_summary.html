@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="widget bg-white">
+    <div class="widget-details widget-list">
+        <div class="mb20 text-uppercase">
+            {% trans "Summary" %}
+        </div>
+        <ul type="none" style="padding: 0; margin: 0">
+            {% for model_name, object_count in model_count %}
+                <li class="widget-list-item">{{ model_name|capfirst }}: {{ object_count }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+

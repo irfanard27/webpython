@@ -60,6 +60,3 @@ class Event(models.Model):
     def __str__(self):
         return self.judul
 
-class TesPost(models.Model):
-    judul = models.CharField(max_length=100)
-    isi = models.TextField()

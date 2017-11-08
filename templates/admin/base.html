@@ -1,0 +1,142 @@
+{% load i18n static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "admin/css/bootstrap.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "admin/css/cust/style.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static "admin/css/cust/climacons-font.css" %}" rel="stylesheet" type="text/css"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    {% block extrastyle %}{% endblock %}
+    {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}"/>{% endif %}
+    {% block extrahead %}
+
+    {% endblock %}
+    {% block blockbots %}
+        <meta name="robots" content="NONE,NOARCHIVE"/>
+    {% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}"
+      data-admin-utc-offset="{% now "Z" %}">
+
+<!-- Container -->
+<div id="app layout-fixed-header">
+
+    {% include "admin/sidebar.html" %}
+
+    <div class=main-panel>
+        <header class="header navbar">
+            <div class="brand visible-xs">
+                <div class=toggle-offscreen>
+                    <a href=# class="hamburger-icon visible-xs" data-toggle=offscreen
+                       data-move=ltr> <span></span> <span></span> <span></span> </a></div>
+                <div class=brand-logo><img src=images/logo-dark.5ba260bb.png height=15 alt=""></div>
+                <div class=toggle-chat><a href=javascript:; class="hamburger-icon v2 visible-xs"
+                                          data-toggle=layout-chat-open> <span></span> <span></span> <span></span> </a>
+                </div>
+            </div>
+            <ul class="nav navbar-nav hidden-xs">
+                <li><p class=navbar-text>
+                    {% if title %}{{ title }}{% endif %}
+                    |
+                    <a href="{% url 'admin:index' %}">
+                        {% trans 'Home' %}</a>
+                {% if title %} &rsaquo; {{ title }}
+                {% endif %}</p>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li><a href=javascript:; data-toggle=quick-launch-panel> <i class="fa fa-circle-thin"></i> </a></li>
+                <li><a href=javascript:; data-toggle=dropdown> <i class="fa fa-bell-o"></i>
+                    <div class="status bg-danger border-danger animated bounce"></div>
+                </a>
+                    <ul class="dropdown-menu notifications">
+                        <li class=notifications-header><p class="text-muted small">You have 3 new messages</p></li>
+                        <li>
+                            <ul class=notifications-list>
+                                <li><a href=javascript:;> <span class="pull-left mt2 mr15"> <img
+                                        src=images/avatar.21d1cc35.jpg class="avatar avatar-xs img-circle"
+                                        alt=""> </span>
+                                    <div class=overflow-hidden><span>Sean launched a new application</span> <span
+                                            class=time>2 seconds ago</span></div>
+                                </a></li>
+                                <li><a href=javascript:;>
+                                    <div class="pull-left mt2 mr15">
+                                        <div class="circle-icon bg-danger"><i class="fa fa-chain-broken"></i></div>
+                                    </div>
+                                    <div class=overflow-hidden><span>Removed chrome from app list</span> <span
+                                            class=time>4 Hours ago</span></div>
+                                </a></li>
+                                <li><a href=javascript:;> <span class="pull-left mt2 mr15"> <img
+                                        src=images/face3.0306ffff.jpg class="avatar avatar-xs img-circle"
+                                        alt=""> </span>
+                                    <div class=overflow-hidden><span class=text-muted>Jack Hunt has registered</span>
+                                        <span class=time>9 hours ago</span></div>
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class=notifications-footer><a href=javascript:;>See all messages</a></li>
+                    </ul>
+                </li>
+                {% block usertools %}
+                    {% if has_permission %}
+                        <li>
+                            <a href=javascript:; data-toggle=dropdown>
+                                <img src=images/avatar.21d1cc35.jpg class="header-avatar img-circle ml10" alt=user
+                                     title=user>
+                                <span class=pull-left>{% trans 'Welcome,' %}
+                        <b>{% firstof user.get_short_name user.get_username %}</b>
+                    </span>
+                            </a>
+                            <ul class=dropdown-menu>
+                                <li><a href="{{ site_url }}">{% trans 'View site' %}</a></li>
+                                {% if docsroot %}
+                                    <li>
+                                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                                    </li>
+                                {% endif %}
+                                {% if user.has_usable_password %}
+                                    <li>
+                                        <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
+                                    </li>
+                                {% endif %}
+                                <li><a href=javascript:;>Help</a></li>
+                                <li>
+                                    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endblock %}
+
+                <li>
+                    <a href=javascript:; class="hamburger-icon v2" data-toggle=layout-chat-open> <span></span>
+                    <span></span> <span></span> </a></li>
+            </ul>
+        </header>
+        <div class="main-content">
+            <div class="row">
+                {% block pretitle %}{% endblock %}
+                {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+                {% endblock %}
+                {% block sidebar %}{% endblock %}
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- END Container -->
+<script src="{% static "admin/js/jquery.init.js" %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script src="{% static "admin/js/cust/app.js" %}"></script>
+</body>
+</html>

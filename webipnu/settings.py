@@ -28,15 +28,15 @@ SECRET_KEY = '(_2h(h4_30euw3p@dk^l#^&x&ohk=t)20-b+#d3emk&cz98==m'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pelajarnu.herokuapp.com']
+ALLOWED_HOSTS = ['pelajarnu.herokuapp.com', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
-    'jet.dashboard',
-    'jet',
+    'pelajar.apps.PelajarConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -110,8 +110,6 @@ DATABASES = {
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
@@ -158,53 +156,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #MEDIA_URL = '/media/'
 ##MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-
-# jet costumize #
-JET_DEFAULT_THEME = 'light-gray'
-
-JET_THEMES = [
-    {
-        'theme': 'default', # theme folder name
-        'color': '#47bac1', # color of the theme's button in user menu
-        'title': 'Default' # theme title
-    },
-    {
-        'theme': 'green',
-        'color': '#44b78b',
-        'title': 'Green'
-    },
-    {
-        'theme': 'light-green',
-        'color': '#2faa60',
-        'title': 'Light Green'
-    },
-    {
-        'theme': 'light-violet',
-        'color': '#a464c4',
-        'title': 'Light Violet'
-    },
-    {
-        'theme': 'light-blue',
-        'color': '#5EADDE',
-        'title': 'Light Blue'
-    },
-    {
-        'theme': 'light-gray',
-        'color': '#222',
-        'title': 'Light Gray'
-    }
-]
-
-JET_SIDE_MENU_COMPACT = True
-
-JET_CHANGE_FORM_SIBLING_LINKS = True
-
-JET_APP_INDEX_DASHBOARD = 'jet.dashboard.dashboard.DefaultAppIndexDashboard'
-
-# end jet costumize #
-
 
 # redactore #
 

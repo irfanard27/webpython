@@ -1,0 +1,140 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static admin_list%}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <div id="up">
+        <div class=col-md-4>
+            <section class="widget bg-lightblue">
+                <div class=widget-details><a href=javascript:; class="pull-left relative"> <img
+                        src=images/avatar.21d1cc35.jpg class="avatar avatar-sm img-circle bordered" alt=""> </a>
+                </div>
+                <div class=widget-details><span class="h5 bold">Samuel Perkins</span>
+                    <small class=block>San Francisco, CA</small>
+                    <small class=block>Interactive UX Developer</small>
+                </div>
+            </section>
+        </div>
+        <div class=col-md-4>
+            <section class="widget bg-brown text-center">
+                <div class=widget-details><h2 class="no-margin bold">14&#176;C</h2>
+                    <small class=text-uppercase>San Francisco, CA</small>
+                </div>
+                <div class=widget-details>
+                    <div class="climacon hail sun fa-4x"></div>
+                </div>
+            </section>
+        </div>
+        <div class=col-md-4>
+            <section class="widget bg-success text-center">
+                <div class="widget-details col-xs-4"><h2 class=no-margin>132</h2>
+                    <small class=text-uppercase>Pending</small>
+                </div>
+                <div class="widget-details col-xs-4"><h2 class=no-margin>43</h2>
+                    <small class=text-uppercase>Completed</small>
+                </div>
+                <div class="widget-details col-xs-4"><h2 class=no-margin>28</h2>
+                    <small class=text-uppercase>Failed</small>
+                </div>
+            </section>
+        </div>
+    </div><br clear="all">
+
+    <div class="col-md-4">
+        <div class="widget bg-white">
+            <div class="widget-icon bg-blue pull-left fa fa-book"></div>
+            <div class="overflow-hidden">
+                <span class="widget-title"> </span>
+                <span class="widget-subtitle">Jumlah Artikel</span>
+            </div>
+        </div>
+        <div class="panel-group" id="accordion">
+
+            {% if app_list %}
+                {% for app in app_list %}
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse{{ forloop.counter }}">{{ app.name }}</a>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="collapse{{ forloop.counter }}">
+                            <table class="table">
+                                {% for model in app.models %}
+                                    <tr class="model-{{ model.object_name|lower }}">
+                                        {% if model.admin_url %}
+                                            <th scope="row" width="150px"><a
+                                                    href="{{ model.admin_url }}">{{ model.name }}</a></th>
+                                        {% else %}
+                                            <th scope="row" width="200px">{{ model.name }}</th>
+                                        {% endif %}
+
+                                        {% if model.add_url %}
+                                            <td>
+                                                <a href="{{ model.add_url }}"
+                                                   class="btn btn-sm btn-primary">{% trans 'Add' %}</a>
+                                                <a href="{{ model.admin_url }}"
+                                                   class="btn btn-sm btn-success">{% trans 'Change' %}</a>
+                                            </td>
+                                        {% else %}
+                                            <td>&nbsp;</td>
+                                        {% endif %}
+
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>{% trans "You don't have permission to edit anything." %}</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+    <div id="content-related" class="col-md-4">
+        <div class="widget bg-white">
+            <div class="widget-details widget-list">
+                <div class="mb20">
+                    <h4 class="no-margin text-uppercase">Actions</h4>
+                    <small class="text-uppercase">Lists of my recent action</small>
+                </div>
+
+
+                {% load log %}
+                {% get_admin_log 10 as admin_log for_user user %}
+                {% if not admin_log %}
+                    <p>{% trans 'None available' %}</p>
+                {% else %}
+                    {% for entry in admin_log %}
+                        <a href="{{ entry.get_admin_url }}"
+                           class="widget-list-item {% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                            {% if entry.is_deletion or not entry.get_admin_url %}
+                                {{ entry.object_repr }}
+                            {% else %}
+                                {{ entry.object_repr }}
+                            {% endif %}
+
+                            {% if entry.content_type %}
+                                <span class="pull-right ">
+                        <span class="bold">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+                    </span>
+                            {% else %}
+                                <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
